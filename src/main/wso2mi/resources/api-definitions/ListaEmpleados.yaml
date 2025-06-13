@@ -1,0 +1,18 @@
+openapi: 3.0.1
+info:
+  title: ListaEmpleados
+  description: API Definition of ListaEmpleados
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/listaempleados
+paths:
+  /read:
+    get:
+      parameters:
+      - name: userid
+        in: query
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response

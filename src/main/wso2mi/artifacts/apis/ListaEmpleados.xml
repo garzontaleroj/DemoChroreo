@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/listaempleados" name="ListaEmpleados" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/read?userid={userid}">
+        <inSequence>
+            <property expression="get-property('query.param.userid')" name="uri.var.userid" scope="default" type="STRING"/>
+            <property expression="fn:concat('SIMON Employee ', get-property('uri.var.userid'))" name="uri.var.userid" scope="default" type="STRING"/>
+            <switch source="get-property('query.param.userid')">
+                <case regex="^(79|51|52).*">
+                    <payloadFactory media-type="json">
+                        <format>
+						{
+						  "product": "List EmpJobs",
+						  "version": "3.1",
+						  "releaseDate": "2025-06-13T00:00:00.000Z",
+						  "demo": true,
+						  "EmpJobs": [
+                            {
+                                "EmpJob": {
+                                "JobTitle": "Ingeniero de Software",
+                                "JobCode": "ENG123",
+                                "Department": "Desarrollo"
+                                },
+                                "EmpEmployment": {
+                                "EmploymentType": "Tiempo Completo",
+                                "HireDate": "2022-01-15"
+                                },
+                                "EmpCompensation": {
+                                "BaseSalary": 50000,
+                                "Currency": "COP"
+                                },
+                                "EmpPayCompRecurring": {
+                                "Bonus": 5000,
+                                "Benefits": ["Seguro médico", "Bono de alimentación"]
+                                }
+                            },
+                            {
+                                "EmpJob": {
+                                "JobTitle": "Analista de Datos",
+                                "JobCode": "DATA456",
+                                "Department": "Análisis"
+                                },
+                                "EmpEmployment": {
+                                "EmploymentType": "Tiempo Parcial",
+                                "HireDate": "2023-06-10"
+                                },
+                                "EmpCompensation": {
+                                "BaseSalary": 30000,
+                                "Currency": "COP"
+                                },
+                                "EmpPayCompRecurring": {
+                                "Bonus": 3000,
+                                "Benefits": ["Seguro médico"]
+                                }
+                            }
+                            ]
+						}                  
+						</format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:uri.var.userid"/>
+                        </args>
+                    </payloadFactory>
+                    <property expression="fn:concat('/read?userid=', get-property('query.param.userid'))" name="servicio" scope="default" type="STRING"/>
+                    <property expression="get-property('query.param.userid')" name="request_in" scope="default" type="STRING"/>
+                    <property expression="$body" name="request_out" scope="default" type="STRING"/>
+                    <sequence key="AuditLogSequence"/>
+                    <log level="full"/>
+                </case>
+                <case regex="^(17|21|41).*">
+                    <payloadFactory media-type="json">
+                        <format>
+						{
+						  "product": "List EmpJobs",
+						  "version": "3.1",
+						  "releaseDate": "2025-06-13T00:00:00.000Z",
+						  "demo": true,
+						  "EmpJobs": [
+                            {
+                                "PerEmail": {
+                                "WorkEmail": "juan.perez@empresa.com",
+                                "PersonalEmail": "juanperez@gmail.com"
+                                },
+                                "PerPersonal": {
+                                "FirstName": "Juan",
+                                "LastName": "Pérez",
+                                "BirthDate": "1990-05-10",
+                                "Gender": "Masculino"
+                                },
+                                "PerPerson": {
+                                "Address": "Calle 123, Bogotá, Colombia",
+                                "Phone": "+57 300 1234567"
+                                },
+                                "PerNationalId": {
+                                "IdType": "Cédula de Ciudadanía",
+                                "IdNumber": "123456789"
+                                }
+                            },
+                            {
+                                "PerEmail": {
+                                "WorkEmail": "maria.gomez@empresa.com",
+                                "PersonalEmail": "mariagomez@hotmail.com"
+                                },
+                                "PerPersonal": {
+                                "FirstName": "María",
+                                "LastName": "Gómez",
+                                "BirthDate": "1985-08-22",
+                                "Gender": "Femenino"
+                                },
+                                "PerPerson": {
+                                "Address": "Carrera 45, Medellín, Colombia",
+                                "Phone": "+57 310 9876543"
+                                },
+                                "PerNationalId": {
+                                "IdType": "Cédula de Ciudadanía",
+                                "IdNumber": "987654321"
+                                }
+                            }
+                            ]
+						}                 
+						</format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:uri.var.studentid"/>
+                            <arg evaluator="xml" expression="$ctx:uri.var.studentname"/>
+                        </args>
+                    </payloadFactory>
+                    <property expression="fn:concat('/read?userid=', get-property('query.param.userid'))" name="servicio" scope="default" type="STRING"/>
+                    <property expression="get-property('query.param.studentid')" name="request_in" scope="default" type="STRING"/>
+                    <property expression="$body" name="request_out" scope="default" type="STRING"/>
+                    <sequence key="AuditLogSequence"/>
+                    <log level="full"/>
+                </case>
+                <default>
+                    <payloadFactory media-type="json">
+                        <format>
+						{
+						  "product": "List EmpJobs",
+						  "version": "3.1",
+						  "releaseDate": "2025-06-13T00:00:00.000Z",
+						  "demo": true,
+						  "EmpJobs": [
+                            {
+                                "EmpJob": {
+                                "JobTitle": "Ingeniero de Software",
+                                "JobCode": "ENG123",
+                                "Department": "Desarrollo"
+                                },
+                                "EmpEmployment": {
+                                "EmploymentType": "Tiempo Completo",
+                                "HireDate": "2022-01-15"
+                                },
+                                "EmpCompensation": {
+                                "BaseSalary": 50000,
+                                "Currency": "COP"
+                                },
+                                "EmpPayCompRecurring": {
+                                "Bonus": 5000,
+                                "Benefits": ["Seguro médico", "Bono de alimentación"]
+                                },
+                                "PerEmail": {
+                                "WorkEmail": "juan.perez@empresa.com",
+                                "PersonalEmail": "juanperez@gmail.com"
+                                },
+                                "PerPersonal": {
+                                "FirstName": "Juan",
+                                "LastName": "Pérez",
+                                "BirthDate": "1990-05-10",
+                                "Gender": "Masculino"
+                                },
+                                "PerPerson": {
+                                "Address": "Calle 123, Bogotá, Colombia",
+                                "Phone": "+57 300 1234567"
+                                },
+                                "PerNationalId": {
+                                "IdType": "Cédula de Ciudadanía",
+                                "IdNumber": "123456789"
+                                }
+                            },
+                            {
+                                "EmpJob": {
+                                "JobTitle": "Analista de Datos",
+                                "JobCode": "DATA456",
+                                "Department": "Análisis"
+                                },
+                                "EmpEmployment": {
+                                "EmploymentType": "Tiempo Parcial",
+                                "HireDate": "2023-06-10"
+                                },
+                                "EmpCompensation": {
+                                "BaseSalary": 30000,
+                                "Currency": "COP"
+                                },
+                                "EmpPayCompRecurring": {
+                                "Bonus": 3000,
+                                "Benefits": ["Seguro médico"]
+                                },
+                                "PerEmail": {
+                                "WorkEmail": "maria.gomez@empresa.com",
+                                "PersonalEmail": "mariagomez@hotmail.com"
+                                },
+                                "PerPersonal": {
+                                "FirstName": "María",
+                                "LastName": "Gómez",
+                                "BirthDate": "1985-08-22",
+                                "Gender": "Femenino"
+                                },
+                                "PerPerson": {
+                                "Address": "Carrera 45, Medellín, Colombia",
+                                "Phone": "+57 310 9876543"
+                                },
+                                "PerNationalId": {
+                                "IdType": "Cédula de Ciudadanía",
+                                "IdNumber": "987654321"
+                                }
+                            }
+                            ]
+						}                  
+						</format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:uri.var.userid"/>
+                        </args>
+                    </payloadFactory>
+                    <property expression="fn:concat('/read?userid=', get-property('query.param.userid'))" name="servicio" scope="default" type="STRING"/>
+                    <property expression="get-property('query.param.userid')" name="request_in" scope="default" type="STRING"/>
+                    <property expression="$body" name="request_out" scope="default" type="STRING"/>
+                    <sequence key="AuditLogSequence"/>
+                    <log level="full"/>
+                </default>
+            </switch>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

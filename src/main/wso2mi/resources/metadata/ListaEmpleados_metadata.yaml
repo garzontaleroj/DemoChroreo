@@ -1,0 +1,10 @@
+---
+key: "ListaEmpleados-1.0.0"
+name : "ListaEmpleados"
+displayName : "ListaEmpleados"
+description: "ListaEmpleados"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/listaempleados"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
